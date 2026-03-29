@@ -1,18 +1,21 @@
-name: Build and Push Docker Image
+name: Build, Push Docker Image, Update Deployment
 
 on:
   push:
     tags:
-      - 'v*'   # triggers on version 
+      - 'v*'   # triggers on version tags like v1.0.3
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: us-central1
   REPOSITORY: my-docker-repo
   IMAGE: hello-test-app
+  GITOPS_REPO: git@github.com:skagos/gcp-ci--argo-cd-gar-gke.git
+  GITOPS_BRANCH: main
+  DEPLOYMENT_FILE: k8s_manifests/deployment.yaml
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,3 +38,17 @@ jobs:
     - name: Push Docker image
       run: |
         docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.ref_name }}
+
+    - name: Update deployment.yaml with new image
+      run: |
+        echo "Cloning GitOps repo..."
+        git clone $GITOPS_REPO gitops-repo
+        cd gitops-repo
+        git checkout $GITOPS_BRANCH
+        echo "Updating image in deployment.yaml..."
+        sed -i "s|image:.*|image: $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${GITHUB_REF_NAME}|" $DEPLOYMENT_FILE
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add $DEPLOYMENT_FILE
+        git commit -m "Update image to ${GITHUB_REF_NAME}"
+        git push origin $GITOPS_BRANCH
