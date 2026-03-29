@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: test-container
-        image: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app:v1.0
+        image: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app:latest
         ports:
         - containerPort: 80
