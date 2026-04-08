@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test-app
+  annotations:
+    argocd-image-updater.argoproj.io/force-update: "true"
 spec:
   replicas: 2
   selector:
@@ -14,6 +16,7 @@ spec:
     spec:
       containers:
       - name: test-container
-        image: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app:v1.0.4
+        image: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
