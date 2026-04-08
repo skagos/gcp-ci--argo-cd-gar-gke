@@ -28,3 +28,5 @@ node_modules/
 .dockerignore
 
 key.json
+gar-gke-terraform.tfvars
+gar-key.json
