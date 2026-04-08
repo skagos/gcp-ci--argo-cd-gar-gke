@@ -38,17 +38,3 @@ jobs:
     - name: Push Docker image
       run: |
         docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.ref_name }}
-
-    - name: Update deployment.yaml with new image
-      run: |
-        echo "Cloning GitOps repo..."
-        git clone $GITOPS_REPO gitops-repo
-        cd gitops-repo
-        git checkout $GITOPS_BRANCH
-        echo "Updating image in deployment.yaml..."
-        sed -i "s|image:.*|image: $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${GITHUB_REF_NAME}|" $DEPLOYMENT_FILE
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git add $DEPLOYMENT_FILE
-        git commit -m "Update image to ${GITHUB_REF_NAME}"
-        git push origin $GITOPS_BRANCH
