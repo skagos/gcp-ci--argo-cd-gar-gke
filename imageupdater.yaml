@@ -1,0 +1,20 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: test-app-updater
+  namespace: argocd
+spec:
+  applicationRefs:
+  - name: test-app
+  images:
+  - alias: myapp
+    imageName: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
+    updateStrategy:
+      method: latest
+    pullSecret:
+      type: pullSecret
+      secretRef:
+        name: gcr-secret
+        namespace: argocd
+  writeBack:
+    method: argocd

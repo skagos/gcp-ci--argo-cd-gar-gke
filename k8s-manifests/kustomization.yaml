@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+- service.yaml
+images:
+- name: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
+  newTag: v1.0.4
