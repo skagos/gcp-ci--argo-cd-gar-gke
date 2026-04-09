@@ -16,7 +16,7 @@ spec:
       - name: gar-pull-secret 
       containers:
       - name: test-container
-        image: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app:v1.0.4
+        image: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app:v1.0.10
         imagePullPolicy: Always
         ports:
         - containerPort: 80
