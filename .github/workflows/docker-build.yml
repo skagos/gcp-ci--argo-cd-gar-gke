@@ -1,40 +1,39 @@
-name: Build, Push Docker Image, Update Deployment
+name: Build, Push Docker Image
 
 on:
   push:
     tags:
-      - 'v*'   # triggers on version tags like v1.0.3
+      - 'v*'   # triggers on version tags like v1.0.12
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: us-central1
   REPOSITORY: my-docker-repo
   IMAGE: hello-test-app
-  GITOPS_REPO: git@github.com:skagos/gcp-ci--argo-cd-gar-gke.git
-  GITOPS_BRANCH: main
-  DEPLOYMENT_FILE: k8s_manifests/deployment.yaml
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Authenticate to GCP
-      uses: google-github-actions/auth@v2
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: Configure Docker
-      run: |
-        gcloud auth configure-docker $REGION-docker.pkg.dev
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker $REGION-docker.pkg.dev
 
-    - name: Build Docker image
-      run: |
-        docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.ref_name }} .
+      - name: Build Docker image
+        run: |
+          docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.ref_name }} .
 
-    - name: Push Docker image
-      run: |
-        docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.ref_name }}
+      - name: Push Docker image
+        run: |
+          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ github.ref_name }}
+
+      # ← REMOVED: old manual kubectl/git update step
+      # Image Updater now handles everything automatically
