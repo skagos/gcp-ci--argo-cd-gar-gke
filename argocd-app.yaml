@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-app
+  name: test-app
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: myapp=us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
@@ -23,7 +23,7 @@ spec:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: my-app
+    namespace: test-app
   syncPolicy:
     automated:
       prune: true
