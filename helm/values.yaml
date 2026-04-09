@@ -1,10 +1,8 @@
-# helm/my-app/values.yaml
-
 replicaCount: 2
 
 image:
   repository: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
-  tag: "latest"
+  tag: "v1.0.11"    # ← current latest, Image Updater will auto-update this going forward
   pullPolicy: Always
 
 service:
