@@ -3,7 +3,7 @@
 replicaCount: 2
 
 image:
-  repository: myapp=us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
+  repository: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
   tag: "latest"
   pullPolicy: Always
 
