@@ -1,8 +1,8 @@
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
-  tag: "v1.0.11"    # ← current latest, Image Updater will auto-update this going forward
+  tag: "v1.0.11"
   pullPolicy: Always
 
 service:
@@ -12,8 +12,8 @@ service:
 
 resources:
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 50m
+    memory: 64Mi
   limits:
-    cpu: 500m
-    memory: 256Mi
+    cpu: 200m   
+    memory: 128Mi
