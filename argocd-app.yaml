@@ -1,0 +1,32 @@
+# argocd-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: myapp=us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
+    argocd-image-updater.argoproj.io/myapp.update-strategy: latest
+    argocd-image-updater.argoproj.io/myapp.tag-filter: "sha-*"
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/myapp.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/myapp.helm.image-tag: image.tag
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/skagos/gcp-ci--argo-cd-gar-gke.git
+    targetRevision: main
+    path: helm
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
