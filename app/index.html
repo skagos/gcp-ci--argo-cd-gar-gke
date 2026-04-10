@@ -1,31 +1,82 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Yoo</title>
-  </head>
-  <body>
-    <h1>hey CI-CD project here yookusooooooo1.016</h1>
-    <p>this is a simple app to test CI-CD pipelines in gcp</p>
-    <p><a href="https://github.com/skagos/gcp-ci--argo-cd-gar-gke.git">check out the repo</a></p>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Demo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
+    body {
+      height: 100vh;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScasAt0Yqei0rno7VTiIA7b-d2H90y3FzH9A&s");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        <p>      |||||      
-   |||||||||||   
-  |||||||||||||  
- ||||||||||||||| 
- ||||||||||||||| 
-|||||||||||||||||
- ||||||||||||||| 
- ||||||||||||||| 
-  |||||||||||||  
-   |||||||||||   
-      |||||      
-        |        
-     || | ||     
-   ||   |   ||   
- ||     |     || 
-        |        
-      |||||   *   </p>
+    .chat-container {
+      width: 350px;
+      max-width: 90%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
 
-  </body>
+    .message {
+      max-width: 75%;
+      padding: 12px 16px;
+      margin: 10px 0;
+      border-radius: 15px;
+      font-size: 16px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .left {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #000;
+      border-bottom-left-radius: 5px;
+      align-self: flex-start;
+    }
+
+    .right {
+      background-color: #4CAF50;
+      color: #fff;
+      border-bottom-right-radius: 5px;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 5px black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="chat-container">
+    <h1>Chat</h1>
+    <div class="chat-box">
+      <div class="message left">Τατι θελεις??</div>
+      <div class="message right">δεν σου δινω</div>
+    </div>
+  </div>
+</body>
 </html>
