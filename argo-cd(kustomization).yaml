@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-app
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: myapp=us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
+    argocd-image-updater.argoproj.io/myapp.pull-secret: pullsecret:argocd/gcr-secret
+    argocd-image-updater.argoproj.io/myapp.update-strategy: latest
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/skagos/gcp-ci--argo-cd-gar-gke.git
+    targetRevision: HEAD
+    path: k8s-manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

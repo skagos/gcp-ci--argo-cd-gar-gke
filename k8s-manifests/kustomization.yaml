@@ -5,4 +5,4 @@ resources:
 - service.yaml
 images:
 - name: us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/hello-test-app
-  newTag: v1.0.4
+  newTag: v1.0.4 # This tag will be overridden by Argo CD Image Updater to the latest version available in the registry. and just used as a rollback/failback temporary tag if needed.
