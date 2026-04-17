@@ -1,4 +1,4 @@
-﻿# 🚀 GCP CI/CD Pipeline with Argo CD, GAR, and GKE
+﻿# ☸️ GCP CI/CD Pipeline with Argo CD, GAR, and GKE
 
 > A production-ready GitOps CI/CD pipeline leveraging Google Cloud Platform's best-in-class services
 
@@ -16,7 +16,7 @@
 
 
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Architecture](#architecture)
@@ -31,7 +31,7 @@
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
 
-## 🏗️ Overview
+## Overview
 
 This project demonstrates a **complete, enterprise-grade CI/CD pipeline** on Google Cloud Platform using:
 
@@ -43,7 +43,7 @@ This project demonstrates a **complete, enterprise-grade CI/CD pipeline** on Goo
 | 📦 **Terraform** | Infrastructure as Code |
 | ⚙️ **GitHub Actions** | CI/CD automation & pipeline orchestration |
 
-## 🎯 Architecture
+## Architecture
 
 ```
 GitHub Repository → GitHub Actions → Google Artifact Registry
@@ -53,7 +53,7 @@ GitHub Repository → GitHub Actions → Google Artifact Registry
                                     Application Pods
 ```
 
-## ✅ Prerequisites
+## Prerequisites
 
 Ensure you have the following tools installed and configured:
 
@@ -139,7 +139,7 @@ docker push \
   us-central1-docker.pkg.dev/applied-ridge-414907/my-docker-repo/my-test-image:latest
 ```
 
-✅ **Verification:** Check your images in the [GCP Console](https://console.cloud.google.com/artifacts)
+ **Verification:** Check your images in the [GCP Console](https://console.cloud.google.com/artifacts)
 
 ---
 
@@ -155,7 +155,7 @@ terraform init
 terraform apply -var-file="terraform.tfvars"
 ```
 
-⏳ This may take 5-10 minutes to complete.
+ This may take 5-10 minutes to complete.
 
 ---
 
@@ -355,19 +355,6 @@ kubectl patch application test-app -n argocd --type merge \
 
 ---
 
-## 🎯 Best Practices
-
-- ✅ Use **separate namespaces** for different applications
-- ✅ Implement **RBAC** for cluster security
-- ✅ Enable **network policies** to restrict traffic
-- ✅ Use **sealed secrets** for sensitive data instead of plaintext
-- ✅ Monitor **resource quotas** to prevent cluster overload
-- ✅ Implement **health checks** and liveness probes
-- ✅ Use **GitOps** principles: store all configs in version control
-- ✅ Set up **alerts and monitoring** with Prometheus/Grafana
-
----
-
 ## 📁 Project Structure
 
 ```
@@ -381,79 +368,6 @@ kubectl patch application test-app -n argocd --type merge \
 ├── Dockerfile                  # Container image
 └── README.md                   # This file
 ```
-
----
-
-## 📞 Support & Contributions
-
-For issues, questions, or contributions, please open an issue or submit a pull request.
-
----
-
-**Happy deploying! 🚀**
-  -n argocd
-
-# Secret 2 - for kubelet to pull images (in default namespace)
-kubectl create secret docker-registry gar-pull-secret `
-  --docker-server=us-central1-docker.pkg.dev `
-  --docker-username=_json_key `
-  --docker-password=$(Get-Content "PATH\TO\gar-key.json" -Raw) `
-  -n default
-
-
-
-
-
-
-ΤΙ ΠΡΑΓΜΑΤΙΚΑ ΣΥΜΒΑΙΝΕΙ: 
-
-
-Registry έχει νέο image
-        ↓
-Image Updater το βρίσκει (strategy: latest)
-        ↓
-ΔΕΝ κάνει git commit
-        ↓
-Γράφει απευθείας στο spec.source.kustomize.images
-του ArgoCD Application object στο Kubernetes:
-  - us-central1-docker.pkg.dev/.../hello-test-app:v1.0.17
-        ↓
-ArgoCD βλέπει την αλλαγή → κάνει sync → deploy
-
-
-Τι είναι το Kustomize
-Το Kustomize είναι ένα εργαλείο που σου επιτρέπει να τροποποιείς Kubernetes manifests χωρίς να τα αλλάζεις απευθείας. Σκέψου το σαν ένα σύστημα "patches" πάνω στα αρχεία σου.
-Είναι built-in στο kubectl — δεν χρειάζεται ξεχωριστή εγκατάσταση.
-
-Το newTag: v1.0.4 στο kustomization.yaml δεν παίζει ουσιαστικό ρόλο γιατί ο Image Updater το παρακάμπτει πάντα με την τελευταία έκδοση.
-
-Όμως χρειάζεται για αυτό:
-yamlresources:
-- deployment.yaml
-- service.yaml
-Αυτό είναι το κρίσιμο κομμάτι. Το ArgoCD όταν βλέπει ότι το path χρησιμοποιεί Kustomize, περιμένει ένα kustomization.yaml για να ξέρει:
-
-Ποια αρχεία να φορτώσει
-Πώς να τα συνδυάσει
-
-Χωρίς αυτό, το ArgoCD δεν θα ήξερε ότι πρέπει να εφαρμόσει και το deployment.yaml και το service.yaml.Το newTag: v1.0.4 στο kustomization.yaml δεν παίζει ουσιαστικό ρόλο γιατί ο Image Updater το παρακάμπτει πάντα με την τελευταία έκδοση.
-
-Όμως χρειάζεται για αυτό:
-yamlresources:
-- deployment.yaml
-- service.yaml
-Αυτό είναι το κρίσιμο κομμάτι. Το ArgoCD όταν βλέπει ότι το path χρησιμοποιεί Kustomize, περιμένει ένα kustomization.yaml για να ξέρει:
-
-Ποια αρχεία να φορτώσει
-Πώς να τα συνδυάσει
-
-Χωρίς αυτό, το ArgoCD δεν θα ήξερε ότι πρέπει να εφαρμόσει και το deployment.yaml και το service.yaml.
-
-
-
-```
-
-Cluster URL: `https://kubernetes.default.svc` (auto-detected by Argo CD)
 
 ## Step 5: Service Account Setup for GitHub Actions
 
@@ -494,11 +408,3 @@ kubectl apply -f k8s-manifests/deployment.yaml
 kubectl apply -f k8s-manifests/service.yaml
 kubectl get svc
 ```
-
-## Additional Tips
-
-- For a full GitHub Actions workflow that builds Docker images, pushes to GAR, and deploys via Argo CD, consider adding a `.github/workflows/ci-cd.yml` file.
-- Monitor your cluster with `kubectl get nodes` and Argo CD UI.
-- Ensure your `terraform.tfvars` files contain the correct project IDs and regions.
-
-If you need help with the GitHub Actions workflow or further customization, let me know!
