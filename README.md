@@ -37,11 +37,11 @@ This project demonstrates a **complete, enterprise-grade CI/CD pipeline** on Goo
 
 | Component | Purpose |
 |-----------|---------|
-| 🗄️ **Google Artifact Registry (GAR)** | Secure container image storage |
-| ☸️ **Google Kubernetes Engine (GKE)** | Managed Kubernetes orchestration |
-| 🔄 **Argo CD** | GitOps-based continuous deployment |
-| 📦 **Terraform** | Infrastructure as Code |
-| ⚙️ **GitHub Actions** | CI/CD automation & pipeline orchestration |
+| **Google Artifact Registry (GAR)** | Secure container image storage |
+|**Google Kubernetes Engine (GKE)** | Managed Kubernetes orchestration |
+|**Argo CD** | GitOps-based continuous deployment |
+|**Terraform** | Infrastructure as Code |
+|**GitHub Actions** | CI/CD automation & pipeline orchestration |
 
 ## Architecture
 
